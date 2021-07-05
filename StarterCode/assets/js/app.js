@@ -19,9 +19,17 @@ let chart = d3.select('#scatter').append('div').classed('chart', true);
 // append svg to chart:
 let svg = chart.append('svg').attr('width', svgWidth).attr('height', svgHeight);
 
-//append svg group:
+// append svg group:
 let svgGroup = svg.append('g').attr('transform',`translate(${margin.left}, ${margin.top})`);
 
-//set axis:
-let XAxis = 'poverty';
-let YAxis = 'healthcare';
+// set axis:
+let xAxis = 'poverty';
+let yAxis = 'healthcare';
+
+// variable x-scale 'upon click' function:
+function xScale(censusData, xAxis) {
+    let xScaleLinear = d3.scaleLinear()
+        .domain([d3.min(censusData, d => d[xAxis]) * 0.8,
+        d3.max(censusData, d => d[xAxis]) * 1.2]).range([0, width]);
+    return xScaleLinear;
+};
