@@ -1,5 +1,5 @@
 // @TODO: YOUR CODE HERE!
-
+// SVG definitions and margins
 let svgWidth = 900;
 let svgHeight = 600;
 let margin = {
@@ -8,3 +8,7 @@ let margin = {
     bottom: 200,
     left: 100
 };
+
+// chart height & width calculations:
+let height = svgHeight - margin.top - margin.bottom;
+let width = svgWidth - margin.right - margin.left;
