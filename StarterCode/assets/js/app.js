@@ -21,3 +21,7 @@ let svg = chart.append('svg').attr('width', svgWidth).attr('height', svgHeight);
 
 //append svg group:
 let svgGroup = svg.append('g').attr('transform',`translate(${margin.left}, ${margin.top})`);
+
+//set axis:
+let XAxis = 'poverty';
+let YAxis = 'healthcare';
