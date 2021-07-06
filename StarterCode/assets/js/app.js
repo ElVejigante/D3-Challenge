@@ -55,3 +55,12 @@ function renderYAxis(newYScale, newYAxis) {
     newYAxis.transition().duration(2000).call(leftAxis);
     return newYAxis;
 };
+
+// function for circle transitions
+function renderCircles(circlesGroup, newXScale, xAxis, newYScale, yAxis) {
+    circlesGroup.transition()
+        .duration(2000)
+        .attr('cx', data => newXScale(data[xAxis]))
+        .attr('cy', data => newYScale(data[yAxis]))
+    return circlesGroup;
+};
