@@ -113,6 +113,7 @@ function updateToolTip(xAxis, yAxis, circlesGroup) {
     circlesGroup.on('mouseover', toolTip.show).on('mouseout', toolTip.hide);
     return circlesGroup;
 };
+
 // Data Retrieval:
 d3.csv('./assets/data/data.csv').then(function(censusData) {
     console.log(censusData);
@@ -124,21 +125,26 @@ d3.csv('./assets/data/data.csv').then(function(censusData) {
         data.obesity = +data.obesity;
         data.smokes = +data.smokes;
     });
+
     // linear scales
     var xLinearScale = xScale(censusData, xAxis);
     var yLinearScale = yScale(censusData, yAxis);
+
     // x axis
     var bottomAxis = d3.axisBottom(xLinearScale);
     var leftAxis = d3.axisLeft(yLinearScale);
+
     // append x
     var xAppend = svgGroup.append('g')
         .classed('x-axis', true)
         .attr('transform', `translate(0, ${height})`)
         .call(bottomAxis);
+
     // append y
     var yAppend = svgGroup.append('g')
         .classed('y-axis', true)
         .call(leftAxis);
+
     // append circles
     var circlesGroup = svgGroup.selectAll('circle')
         .data(censusData)
@@ -149,6 +155,7 @@ d3.csv('./assets/data/data.csv').then(function(censusData) {
         .attr('cy', d => yLinearScale(d[yAxis]))
         .attr('r', 14)
         .attr('opacity', '.5');
+
     //append Initial Text
     var textGroup = svgGroup.selectAll('.stateText')
         .data(censusData)
@@ -188,5 +195,38 @@ d3.csv('./assets/data/data.csv').then(function(censusData) {
         .attr('y', 60)
         .attr('value', 'income')
         .text('Household Income (Median)')
+    
+    //create a group for Y labels
+    var yLabelsGroup = svgGroup.append('g')
+        .attr('transform', `translate(${0 - margin.left/4}, ${height/2})`);
 
+    var healthcareLabel = yLabelsGroup.append('text')
+        .classed('aText', true)
+        .classed('active', true)
+        .attr('x', 0)
+        .attr('y', 0 - 20)
+        .attr('dy', '1em')
+        .attr('transform', 'rotate(-90)')
+        .attr('value', 'healthcare')
+        .text('Without Healthcare (%)');
+
+    var smokesLabel = yLabelsGroup.append('text')
+        .classed('aText', true)
+        .classed('inactive', true)
+        .attr('x', 0)
+        .attr('y', 0 - 40)
+        .attr('dy', '1em')
+        .attr('transform', 'rotate(-90)')
+        .attr('value', 'smokes')
+        .text('Smoker (%)');
+
+    var obesityLabel = yLabelsGroup.append('text')
+        .classed('aText', true)
+        .classed('inactive', true)
+        .attr('x', 0)
+        .attr('y', 0 - 60)
+        .attr('dy', '1em')
+        .attr('transform', 'rotate(-90)')
+        .attr('value', 'obesity')
+        .text('Obese (%)');
 })
