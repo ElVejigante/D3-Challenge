@@ -124,5 +124,21 @@ d3.csv('./assets/data/data.csv').then(function(censusData) {
         data.obesity = +data.obesity;
         data.smokes = +data.smokes;
     });
+    // linear scales
+    var xLinearScale = xScale(censusData, xAxis);
+    var yLinearScale = yScale(censusData, yAxis);
+    // x axis
+    var bottomAxis = d3.axisBottom(xLinearScale);
+    var leftAxis = d3.axisLeft(yLinearScale);
+    // append x
+    var xAppend = chartGroup.append('g')
+        .classed('x-axis', true)
+        .attr('transform', `translate(0, ${height})`)
+        .call(bottomAxis);
+    // append y
+    var yAppend = chartGroup.append('g')
+        .classed('y-axis', true)
+        .call(leftAxis);
+    // append circles
     
 })
