@@ -126,31 +126,23 @@ d3.csv('./assets/data/data.csv').then(function(censusData) {
         data.healthcare = +data.healthcare;
     });
 
-    //create linear scales
+    //linear scales
     var xLinearScale = xScale(censusData, selectedXAxis);
     var yLinearScale = yScale(censusData, selectedYAxis);
 
-    //create x axis
+    //x axis
     var bottomAxis = d3.axisBottom(xLinearScale);
     var leftAxis = d3.axisLeft(yLinearScale);
 
     //append X
-    var xAxis = svgGroup.append('g')
-        .classed('x-axis', true)
-        .attr('transform', `translate(0, ${height})`)
+    var xAxis = svgGroup.append('g').classed('x-axis', true).attr('transform', `translate(0, ${height})`)
         .call(bottomAxis);
 
     //append Y
-    var yAxis = svgGroup.append('g')
-        .classed('y-axis', true)
-        //.attr
-        .call(leftAxis);
+    var yAxis = svgGroup.append('g').classed('y-axis', true).call(leftAxis);
 
     //append Circles
-
-    var circlesGroup = svgGroup.selectAll('circle')
-        .data(censusData)
-        .enter()
+    var circlesGroup = svgGroup.selectAll('circle').data(censusData).enter()
         .append('circle')
         .classed('stateCircle', true)
         .attr('cx', d => xLinearScale(d[selectedXAxis]))
@@ -159,9 +151,7 @@ d3.csv('./assets/data/data.csv').then(function(censusData) {
         .attr('opacity', '.5');
 
     //append Initial Text
-    var textGroup = svgGroup.selectAll('.stateText')
-        .data(censusData)
-        .enter()
+    var textGroup = svgGroup.selectAll('.stateText').data(censusData).enter()
         .append('text')
         .classed('stateText', true)
         .attr('x', d => xLinearScale(d[selectedXAxis]))
@@ -170,7 +160,7 @@ d3.csv('./assets/data/data.csv').then(function(censusData) {
         .attr('font-size', '10px')
         .text(function(d) { return d.abbr });
 
-    //create a group for the x axis labels
+    //group for the x axis labels
     var xLabelsGroup = svgGroup.append('g')
         .attr('transform', `translate(${width / 2}, ${height + 10 + margin.top})`);
 
@@ -198,7 +188,7 @@ d3.csv('./assets/data/data.csv').then(function(censusData) {
         .attr('value', 'income')
         .text('Household Income (Median)')
 
-    //create a group for Y labels
+    //group for Y labels
     var yLabelsGroup = svgGroup.append('g')
         .attr('transform', `translate(${0 - margin.left/4}, ${height/2})`);
 
@@ -276,6 +266,7 @@ d3.csv('./assets/data/data.csv').then(function(censusData) {
                 }
             }
         });
+        
     //y axis lables event listener
     yLabelsGroup.selectAll('text')
         .on('click', function() {
