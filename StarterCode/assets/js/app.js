@@ -140,5 +140,13 @@ d3.csv('./assets/data/data.csv').then(function(censusData) {
         .classed('y-axis', true)
         .call(leftAxis);
     // append circles
-
+    var circlesGroup = svgGroup.selectAll('circle')
+    .data(censusData)
+    .enter()
+    .append('circle')
+    .classed('stateCircle', true)
+    .attr('cx', d => xLinearScale(d[xAxis]))
+    .attr('cy', d => yLinearScale(d[yAxis]))
+    .attr('r', 14)
+    .attr('opacity', '.5');
 })
