@@ -49,3 +49,9 @@ function renderXAxis(newXScale, newXAxis) {
     return newXAxis;
 };
 
+// this function renders the y axis upon click:
+function renderYAxis(newYScale, newYAxis) {
+    let leftAxis = d3.axisLeft(newYScale);
+    newYAxis.transition().duration(2000).call(leftAxis);
+    return newYAxis;
+};
