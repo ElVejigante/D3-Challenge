@@ -131,14 +131,14 @@ d3.csv('./assets/data/data.csv').then(function(censusData) {
     var bottomAxis = d3.axisBottom(xLinearScale);
     var leftAxis = d3.axisLeft(yLinearScale);
     // append x
-    var xAppend = chartGroup.append('g')
+    var xAppend = svgGroup.append('g')
         .classed('x-axis', true)
         .attr('transform', `translate(0, ${height})`)
         .call(bottomAxis);
     // append y
-    var yAppend = chartGroup.append('g')
+    var yAppend = svgGroup.append('g')
         .classed('y-axis', true)
         .call(leftAxis);
     // append circles
-    
+
 })
