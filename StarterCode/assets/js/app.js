@@ -1,10 +1,10 @@
 // @TODO: YOUR CODE HERE!
 // SVG definitions and margins
-let svgWidth = 900;
-let svgHeight = 600;
+let svgWidth = 960;
+let svgHeight = 620;
 let margin = {
-    top: 30,
-    right: 50,
+    top: 20,
+    right: 40,
     bottom: 200,
     left: 100
 };
@@ -160,4 +160,33 @@ d3.csv('./assets/data/data.csv').then(function(censusData) {
         .attr('dy', 3)
         .attr('font-size', '10px')
         .text(function(d) { return d.abbr });
+
+    //create a group for the x axis labels
+    var xLabelsGroup = svgGroup.append('g')
+        .attr('transform', `translate(${width / 2}, ${height + 10 + margin.top})`);
+
+    var povertyLabel = xLabelsGroup.append('text')
+        .classed('aText', true)
+        .classed('active', true)
+        .attr('x', 0)
+        .attr('y', 20)
+        .attr('value', 'poverty')
+        .text('In Poverty (%)');
+
+    var ageLabel = xLabelsGroup.append('text')
+        .classed('aText', true)
+        .classed('inactive', true)
+        .attr('x', 0)
+        .attr('y', 40)
+        .attr('value', 'age')
+        .text('Age (Median)');
+
+    var incomeLabel = xLabelsGroup.append('text')
+        .classed('aText', true)
+        .classed('inactive', true)
+        .attr('x', 0)
+        .attr('y', 60)
+        .attr('value', 'income')
+        .text('Household Income (Median)')
+
 })
