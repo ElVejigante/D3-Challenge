@@ -229,4 +229,50 @@ d3.csv('./assets/data/data.csv').then(function(censusData) {
         .attr('transform', 'rotate(-90)')
         .attr('value', 'obesity')
         .text('Obese (%)');
+    
+    //update the toolTip
+    var circlesGroup = updateToolTip(xAxis, yAxis, circlesGroup);
+
+    //x axis event listener
+    xLabelsGroup.selectAll('text')
+        .on('click', function() {
+            var value = d3.select(this).attr('value');
+
+            if (value != xAxis) {
+
+                //replace chosen x with a value
+                xAxis = value;
+
+                //update x for new data
+                xLinearScale = xScale(censusData, xAxis);
+
+                //update x 
+                newXAxis = renderXAxis(xLinearScale, newXAxis);
+
+                //upate circles with a new x value
+                circlesGroup = renderCircles(circlesGroup, xLinearScale, xAxis, yLinearScale, yAxis);
+
+                //update text 
+                textGroup = renderText(textGroup, xLinearScale, xAxis, yLinearScale, yAxis);
+
+                //update tooltip
+                circlesGroup = updateToolTip(xAxis, yAxis, circlesGroup);
+
+                //change of classes changes text
+                if (xAxis === 'poverty') {
+                    povertyLabel.classed('active', true).classed('inactive', false);
+                    ageLabel.classed('active', false).classed('inactive', true);
+                    incomeLabel.classed('active', false).classed('inactive', true);
+                } else if (xAxis === 'age') {
+                    povertyLabel.classed('active', false).classed('inactive', true);
+                    ageLabel.classed('active', true).classed('inactive', false);
+                    incomeLabel.classed('active', false).classed('inactive', true);
+                } else {
+                    povertyLabel.classed('active', false).classed('inactive', true);
+                    ageLabel.classed('active', false).classed('inactive', true);
+                    incomeLabel.classed('active', true).classed('inactive', false);
+                }
+            }
+        });
+        
 })
