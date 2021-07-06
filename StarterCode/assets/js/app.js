@@ -113,3 +113,13 @@ function updateToolTip(xAxis, yAxis, circlesGroup) {
     circlesGroup.on('mouseover', toolTip.show).on('mouseout', toolTip.hide);
     return circlesGroup;
 };
+// Data Retrieval:
+d3.csv('./assets/data/data.csv').then(function(censusData) {
+    console.log(censusData);
+    censusData.forEach(function(data) {
+        data.obesity = +data.obesity;
+        data.income = +data.income;
+        data.smokes = +data.smokes;
+        data.age = +data.age;
+    });
+})
