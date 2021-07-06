@@ -117,9 +117,11 @@ function updateToolTip(xAxis, yAxis, circlesGroup) {
 d3.csv('./assets/data/data.csv').then(function(censusData) {
     console.log(censusData);
     censusData.forEach(function(data) {
-        data.obesity = +data.obesity;
+        data.poverty = +data.poverty;
         data.income = +data.income;
-        data.smokes = +data.smokes;
         data.age = +data.age;
+        data.healthcare = +data.healthcare;
+        data.obesity = +data.obesity;
+        data.smokes = +data.smokes;
     });
 })
