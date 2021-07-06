@@ -124,4 +124,5 @@ d3.csv('./assets/data/data.csv').then(function(censusData) {
         data.obesity = +data.obesity;
         data.smokes = +data.smokes;
     });
+    
 })
