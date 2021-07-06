@@ -141,12 +141,23 @@ d3.csv('./assets/data/data.csv').then(function(censusData) {
         .call(leftAxis);
     // append circles
     var circlesGroup = svgGroup.selectAll('circle')
-    .data(censusData)
-    .enter()
-    .append('circle')
-    .classed('stateCircle', true)
-    .attr('cx', d => xLinearScale(d[xAxis]))
-    .attr('cy', d => yLinearScale(d[yAxis]))
-    .attr('r', 14)
-    .attr('opacity', '.5');
+        .data(censusData)
+        .enter()
+        .append('circle')
+        .classed('stateCircle', true)
+        .attr('cx', d => xLinearScale(d[xAxis]))
+        .attr('cy', d => yLinearScale(d[yAxis]))
+        .attr('r', 14)
+        .attr('opacity', '.5');
+    //append Initial Text
+    var textGroup = svgGroup.selectAll('.stateText')
+        .data(censusData)
+        .enter()
+        .append('text')
+        .classed('stateText', true)
+        .attr('x', d => xLinearScale(d[xAxis]))
+        .attr('y', d => yLinearScale(d[yAxis]))
+        .attr('dy', 3)
+        .attr('font-size', '10px')
+        .text(function(d) { return d.abbr });
 })
