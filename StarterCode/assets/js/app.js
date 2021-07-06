@@ -64,3 +64,52 @@ function renderCircles(circlesGroup, newXScale, xAxis, newYScale, yAxis) {
         .attr('cy', data => newYScale(data[yAxis]))
     return circlesGroup;
 };
+
+// function for updating labels
+function renderText(textGroup, newXScale, xAxis, newYScale, yAxis) {
+    textGroup.transition()
+        .duration(2000)
+        .attr('x', d => newXScale(d[xAxis]))
+        .attr('y', d => newYScale(d[yAxis]));
+    return textGroup
+};
+
+// function to stylize axis values
+function styleX(value, xAxis) {
+    if(xAxis === 'poverty') {
+        return `${value}%`;
+    } else if (xAxis === 'income') {
+        return `${value}`;
+    } else {
+        return `${value}`;
+    }
+};
+
+// function for updating circles group
+
+function updateToolTip(xAxis, yAxis, circlesGroup) {
+    //xAxis, poverty
+    if (xAxis === 'poverty') {
+        let xLabel = 'Poverty:';
+    } else if (xAxis === 'income') {
+        let xLabel = 'Median Income:';
+    } else {
+        let xLabel = 'Age:';
+    }
+    //yAxis, Health Care
+    if (yAxis === 'healthcare') {
+        let yLabel = 'No Health Care:';
+    } else if (yAxis === 'obesity') {
+        let yLabel = 'Obesity:';
+    } else {
+        let yLabel = 'Smokers:';
+    }
+    // tooltip
+    let toolTip = d3.tip().attr('class', 'd3-tip').offset([-8,0])
+        .html(function(d) {
+            return (`${d.state}<br>${xLabel} ${styleX(d[xAxis], xAxis)}<br>${yLabel} ${d[xAxis]}%`);
+        });
+    
+    circlesGroup.on('mouseover', toolTip.show).on('mouseout', toolTip.hide);
+    return circlesGroup;
+};
