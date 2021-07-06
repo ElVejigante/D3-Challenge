@@ -42,3 +42,10 @@ function yScale(censusData, yAxis) {
     return yScaleLinear;
 };
 
+// this function renders the x axis upon click:
+function renderXAxis(newXScale, newXAxis) {
+    let bottomAxis = d3.axisBottom(newXScale);
+    newXAxis.transition().duration(2000).call(bottomAxis);
+    return newXAxis;
+};
+
